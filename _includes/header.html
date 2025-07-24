@@ -1,15 +1,167 @@
-<header class="site-header">
-  <div class="container">
-    <div class="logo">
-      <a href="/">My portfolio</a>
+<!-- ハンバーガー　-->
+ <div class="sp-menu">
+    <input type="checkbox" id="sp-menu__check">
+    <label for="sp-menu__check" class="sp-menu__box">
+    <span></span>
+    </label>
+    <div class="sp-menu__content">
+        <ul class="sp-menu__list">
+            <li class="sp-menu__item">
+                <a class="sp-menu__link" href="https://suzuna-suzuri.github.io/github.io/">HOME</a>
+                </li>
+            <li class="sp-menu__item">
+                <a class="sp-menu__link" href="">ABOUT</a>
+            </li>
+            <li class="sp-menu__item">
+                <a class="sp-menu__link" href="contact.html">CONTACT</a>
+            </li>
+        </ul>
     </div>
-  <input type="checkbox" id="menu-toggle" class="menu-toggle">
-  <label for="menu-toggle" class="menu-icon">&#9776;</label>
-  <nav class="site-nav">
-    <a href="/">Home</a>
-    <a href ="/gallery">Gallery</a>
-    <a href="/price">Price</a>
-    <a href="/contact">Contact</a>
-  </nav>
 </div>
-</header>
+<style>
+ /* ハンバーガーメニューのボタン */
+        .sp-menu__box {
+        position: fixed;/* 位置を固定 */
+        top: 0;  /* 最上部 */
+        right: 0;  /* 右端 */
+        /* 中の要素を上下中央寄せ */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* サイズ指定 */
+        height: 50px;
+        width: 50px;
+        /* 最前面にする */
+        z-index: 100;
+        background-color: #ffffff;
+        padding-right: 10px;
+        }
+        /* メニューの白線を疑似要素を使って3本作成 */
+        .sp-menu__box span,         /* 真ん中の線 */
+        .sp-menu__box span:before,  /* 上の線 */
+        .sp-menu__box span:after {  /* 下の線 */
+        /* contentの値を指定しないと疑似要素が生成されない */
+        content: "";
+        /* ３本線のサイズと色を指定 */
+        display: block;
+        height: 1.5px;
+        width: 19px;
+        border-radius: 3px;
+        background-color: #5e5e5e;
+        /* 3本線の位置は絶対位置で指定 */
+        position: absolute;
+        }
+        /* 上の線の位置 */
+        .sp-menu__box span:before {
+        /* 真ん中の線と離す距離 */
+        bottom: 6px;
+        }
+        /* 下の線の位置 */
+        .sp-menu__box span:after {
+        /* 真ん中の線と離す距離 */
+        top: 6px;
+        }
+
+        /* チェックボックスは常に非表示 */
+        #sp-menu__check {
+        display: none;
+        }
+        /* チェックボックスのチェックがON（スマホ用メニューを開いた状態） */
+        /* 真ん中の線 */
+        #sp-menu__check:checked ~ .sp-menu__box span {
+        /* 透明にして見えなくする */
+        background: rgba(255, 255, 255, 0);
+        }
+        /* 上の線 */
+        #sp-menu__check:checked ~ .sp-menu__box span::before {
+        /* 真ん中の線との距離を無くす（真ん中の線と同じ位置にする） */
+        bottom: 0;
+        /* 右に45度傾けてバツの片側の線にする */
+        transform: rotate(45deg);
+        }
+        /* 下の線 */
+        #sp-menu__check:checked ~ .sp-menu__box span::after {
+        /* 真ん中の線との距離を無くす（真ん中の線と同じ位置にする） */
+        top: 0;
+        /* 左に45度傾けてバツの片側の線にする */
+        transform: rotate(-45deg);
+        }
+        #sp-menu__check:checked ~ .hamburger__content {
+        left: 0;
+        }
+
+        /* スマホ用メニュー */
+        .sp-menu__content {
+        /* 絶対位置で指定   */
+        position: fixed;
+        /* 画面全体に表示 */
+        width: 100%;
+        height: 100%;
+        /* 開始位置は左上隅 */
+        top: 0;
+        left: 0;
+        /* 前面に表示するがハンバーガーボタンよりは背後 */
+        z-index: 90;
+        opacity: 0.95;
+        }
+        
+        /* スマホ用メニューのリスト */
+        .sp-menu__list {
+        padding: 70px 10px 0;
+        }
+        /* スマホ用メニュー項目 */
+        .sp-menu__item {
+        
+        list-style: none;
+        }
+        /* スマホ用メニュー項目のリンク */
+        .sp-menu__link {
+        display: block;
+        width: 100%;
+        font-size: 14px;
+        box-sizing: border-box;
+        color: #000000;
+        text-decoration: none;
+        padding: 15px 15px 15px 0;
+        font-family: Karla, sans-serif;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        }
+
+    /* ハンバーガーボタンを押してチェックがONの時だけ
+   スマホ用メニューを画面左端に移動する */
+        #sp-menu__check:checked ~ .sp-menu__content {
+        left: 0;
+        }
+        /* 変更箇所はコメントの項目のみ */
+        .sp-menu__content {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+
+        /* 普段は画面外にするために左端を画面右端の位置にする */
+        left: 100%;
+
+        z-index: 90;
+        background-color: #ffffff;
+        
+        /* 右端からゆっくり移動するように表示 */
+        transition: all 0.5s;
+        }
+
+
+        /* 画面サイズが1279px以下の時はPC用メニューは非表示 */
+        @media screen and (max-width: 1279px) {
+            header {
+                display: none;
+            }
+            
+            }
+        /* 画面サイズが1280px以上の時はスマホ用メニューは非表示  */
+        @media screen and (min-width: 1280px) {
+            .sp-header {
+                display: none;
+            }
+        }
+</style>
